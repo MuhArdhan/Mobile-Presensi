@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "25890653009",
-    "project_id": "absensi-1d429",
-    "storage_bucket": "absensi-1d429.firebasestorage.app"
+    "project_number": "1053136660007",
+    "project_id": "moblie-presensi",
+    "storage_bucket": "moblie-presensi.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:25890653009:android:91f2cd7f6d3d23af658970",
+        "mobilesdk_app_id": "1:1053136660007:android:db004a99440f53c7a0d002",
         "android_client_info": {
           "package_name": "com.example.absensi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "25890653009-oh89pf3j9dh4fu1plouj5jv8tdcongkm.apps.googleusercontent.com",
+          "client_id": "1053136660007-s7osgju2vuuhi7arkhgvk36poh1u06ok.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.absensi",
+            "certificate_hash": "7c45af2d3066b91b36daa04e9af31b73ee14a3d8"
+          }
+        },
+        {
+          "client_id": "1053136660007-tmm570djer9gmn0ji4u1sdkh32nkgbvj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDRwQMx-0O7NqtV9OP_9_nHmPd_itOB0kQ"
+          "current_key": "AIzaSyCyERF-FbwaJiypwjurdT-qkS4Z33M5w3w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "25890653009-oh89pf3j9dh4fu1plouj5jv8tdcongkm.apps.googleusercontent.com",
+              "client_id": "1053136660007-tmm570djer9gmn0ji4u1sdkh32nkgbvj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

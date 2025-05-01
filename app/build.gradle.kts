@@ -1,7 +1,7 @@
 plugins {
-    alias(libs.plugins.android.application)
-    id("com.google.gms.google-services") version "4.4.2"
     alias(libs.plugins.kotlin.compose)
+    id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -43,9 +43,9 @@ dependencies {
     implementation(libs.play.services.cast.framework)
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
 
     // Glide
