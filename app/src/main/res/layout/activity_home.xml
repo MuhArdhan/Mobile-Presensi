@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Logout Button -->
+
+    <!-- Logo dan Nama Aplikasi -->
+
+    <ImageButton
+        android:id="@+id/logout_button"
+        android:layout_width="52dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/logout_button_desc"
+        android:scaleType="centerInside"
+        android:src="@drawable/exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/app_logo_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_attendify" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/imageView3"
+        app:layout_constraintStart_toEndOf="@id/imageView3"
+        app:layout_constraintTop_toTopOf="@id/imageView3" />
+
+    <!-- Bagian Selamat Datang -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:contentDescription="@string/user_avatar_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
+        app:srcCompat="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/welcome_guest"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toTopOf="@id/imageView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/welcome_message"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/textView2"
+        app:layout_constraintTop_toBottomOf="@id/textView2" />
+
+    <!-- Reminder Section -->
+    <ImageView
+        android:id="@+id/reminderImage"
+        android:layout_width="350dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/reminder_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView4"
+        app:srcCompat="@drawable/jangan_lupa_absen" />
+
+    <!-- Data Section Title -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/view_data"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reminderImage" />
+
+    <!-- Menu Items -->
+    <!-- Presensi -->
+    <!-- Presensi Button dengan animasi -->
+    <TextView
+        android:id="@+id/presensiButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_shape"
+        android:drawablePadding="8dp"
+        android:drawableTop="@drawable/logo_presensi"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/presensi"
+        android:textColor="@color/white"
+        android:translationZ="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@animator/button_scale"
+        android:foreground="?attr/selectableItemBackground"
+        app:drawableTopCompat="@drawable/logo_presensi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
+
+    <!-- Perizinan Button dengan animasi -->
+    <TextView
+        android:id="@+id/perizinanButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/perizinan"
+        android:drawableTop="@drawable/logo_perizinan"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/perizinan"
+        android:textColor="@color/white"
+        android:translationZ="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@animator/button_scale"
+        android:foreground="?attr/selectableItemBackground"
+        app:drawableTopCompat="@drawable/logo_perizinan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/presensiButton" />
+
+    <!-- Riwayat Button dengan animasi -->
+    <TextView
+        android:id="@+id/riwayatButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/riwayat"
+        android:drawableTop="@drawable/logo_riwayat"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/riwayat"
+        android:textColor="@color/white"
+        android:translationZ="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@animator/button_scale"
+        android:foreground="?attr/selectableItemBackground"
+        app:drawableTopCompat="@drawable/logo_riwayat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/presensiButton" />
+
+    <!-- Coming Soon Button dengan animasi -->
+    <TextView
+        android:id="@+id/comingSoonButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/coming_soon"
+        android:drawableTop="@drawable/logo_comingsoon"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/coming_soon"
+        android:textColor="@color/black"
+        android:translationZ="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@animator/button_scale"
+        android:foreground="?attr/selectableItemBackground"
+        app:drawableTopCompat="@drawable/logo_comingsoon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/riwayatButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

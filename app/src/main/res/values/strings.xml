@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Attentify</string>
+    <string name="title_activity_login">Attentify</string>
+    <string name="logout_button_desc">Logout</string>
+    <string name="app_logo_desc">Logo Attentify</string>
+    <string name="user_avatar_desc">User avatar</string>
+    <string name="welcome_guest">Halo, Guest</string>
+    <string name="welcome_message">Selamat datang di Attentify</string>
+    <string name="reminder_desc">Reminder to check in</string>
+    <string name="view_data">Lihat Data</string>
+    <string name="presensi">Presensi</string>
+    <string name="perizinan">Perizinan</string>
+    <string name="riwayat">Riwayat</string>
+    <string name="coming_soon">COMING SOON</string>
+    <string name="form_presensi">Form Presensi: %1$s</string>
+    <string name="foto_diperlukan">Silakan ambil foto terlebih dahulu.</string>
+    <string name="lokasi_diperlukan">Silakan ambil lokasi terlebih dahulu.</string>
+    <string name="error_lokasi_kosong">Lokasi tidak ditemukan. Coba lagi.</string>
+    <string name="lokasi_tidak_ditemukan">Gagal mendapatkan lokasi. Pastikan GPS aktif.</string>
+    <string name="upload_foto_gagal">Gagal mengupload foto. Coba lagi.</string>
+    <string name="gagal_kirim_data">Gagal mengirim data presensi: %1$s</string>
+    <string name="presensi_berhasil">Presensi berhasil dikirim!</string>
+    <string name="error_message">Terjadi kesalahan: %1$s</string>
+    <string name="izin_lokasi_diperlukan">Izin lokasi diperlukan untuk mengambil lokasi Anda.</string>
+    <string name="konfirmasi_presensi">Konfirmasi Presensi</string>
+    <string name="konfirmasi_isi_presensi">Anda akan melakukan presensi %1$s dengan data berikut:\n\nNama: %2$s\nLokasi: %3$s\nKoordinat: %4$s\n\nLanjutkan?</string>
+    <string name="kirim">Kirim</string>
+    <string name="batal">Batal</string>
+    <string name="koordinat">Koordinat: %1$s</string>
+    <string name="address_format">%1$s, %2$s, %3$s</string>
+    <string name="default_web_client_id">1:25890653009:android:91f2cd7f6d3d23af658970.apps.googleusercontent.com</string>
+
+    <!-- Tambahan untuk activity_presensi.xml -->
+    <string name="ambil_foto">Ambil Foto</string>
+    <string name="dapatkan_lokasi">Dapatkan Lokasi</string>
+    <string name="kategori">Kategori</string>
+    <string name="kirim_presensi">Kirim Presensi</string>
+    <string name="koordinat_default">Koordinat: -</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="nama">Nama</string>
+    <string name="selfie_content_desc">Foto Selfie</string>
+
+    <!-- Tambahan untuk activity_perizinan.xml -->
+    <string name="form_perizinan">Form Izin: %1$s</string>
+    <string name="konfirmasi_isi_perizinan_sederhana">
+        Nama: %1$s\nKategori: %2$s\nAlasan: %3$s\n\nYakin ingin mengirimkan perizinan ini?
+    </string>
+
+    <!-- Tambahan baru untuk memperbaiki error -->
+    <string name="masukkan_nama">Masukkan Nama</string>
+    <string name="masukkan_kategori">Masukkan Kategori</string>
+    <string name="alasan_izin">Alasan Izin</string>
+    <string name="masukkan_alasan">Masukkan Alasan Izin</string>
+    <string name="pilih_pdf_file">Pilih PDF File</string>
+    <string name="no_file_selected">No file selected</string>
+    <string name="submit">Submit</string>
+</resources>
