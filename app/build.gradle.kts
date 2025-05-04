@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation("androidx.cardview:cardview:1.0.0")
 
     // Testing
     testImplementation(libs.junit)
@@ -77,5 +78,4 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
 
     implementation (libs.volley)
-
 }

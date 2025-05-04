@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Color;
@@ -40,15 +41,15 @@ public class HomeActivity extends AppCompatActivity {
         // Inisialisasi komponen UI
         TextView welcomeText = findViewById(R.id.textView2);
         ImageButton logoutButton = findViewById(R.id.logout_button);
-        TextView presensiButton = findViewById(R.id.presensiButton);
-        TextView riwayatButton = findViewById(R.id.riwayatButton);
-        TextView perizinanButton = findViewById(R.id.perizinanButton);
+        ImageView presensiButton = findViewById(R.id.presensiButton);
+        ImageView riwayatButton = findViewById(R.id.riwayatButton);
+        ImageView perizinanButton = findViewById(R.id.perizinanButton);
         TextView comingSoonButton = findViewById(R.id.comingSoonButton);
 
         // Set welcome message dengan nama pengguna
         String name = getIntent().getStringExtra("name");
         if (name != null) {
-            welcomeText.setText("Welcome, " + name + "!");
+            welcomeText.setText(name);
         }
 
         // Logout button
