@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         ImageView presensiButton = findViewById(R.id.presensiButton);
         ImageView riwayatButton = findViewById(R.id.riwayatButton);
         ImageView perizinanButton = findViewById(R.id.perizinanButton);
-        TextView comingSoonButton = findViewById(R.id.comingSoonButton);
+        ImageView comingSoonButton = findViewById(R.id.comingSoonButton);
 
         // Set welcome message dengan nama pengguna
         String name = getIntent().getStringExtra("name");
