@@ -295,6 +295,9 @@ public class AbsenFragment extends Fragment {
         }
         progressDialog.show(); // Tampilkan loading
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = (user != null) ? user.getUid() : "unknown_user";
+
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
                 // Pastikan fotoUri tidak null sebelum memanggil convertImageToBase64
@@ -336,6 +339,7 @@ public class AbsenFragment extends Fragment {
                 json.put("lokasi", Objects.requireNonNull(etLokasi.getText()).toString());
                 json.put("koordinat", currentLatLng);
                 json.put("fotoBase64", base64Image);
+                json.put("userId", userId);
 
                 RequestBody body = RequestBody.create(
                         json.toString(),

@@ -9,7 +9,7 @@
     <string name="app_logo_desc">Logo Attentify</string>
     <string name="user_avatar_desc">User avatar</string>
     <string name="welcome_guest">Guest</string>
-    <string name="welcome_message">Selamat Sore</string>
+    <string name="welcome_message">Selamat Datang</string>
     <string name="reminder_desc">Reminder to check in</string>
     <string name="view_data">Lihat Data</string>
     <string name="presensi">Absen</string>
