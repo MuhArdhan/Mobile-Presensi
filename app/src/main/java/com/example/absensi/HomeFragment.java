@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
         ImageButton logoutButton = view.findViewById(R.id.logout_button);
         ImageView presensiButton = view.findViewById(R.id.presensiButton); // Ini adalah tombol "Absen Sekarang"
         ImageView riwayatButton = view.findViewById(R.id.riwayatButton);
-        ImageView perizinanButton = view.findViewById(R.id.perizinanButton); // Ini adalah tombol "Perizinan" / "Izin"
-        ImageView comingSoonButton = view.findViewById(R.id.comingSoonButton); // Asumsi ini adalah tombol "Cuti" atau lainnya
+        ImageView perizinanButton = view.findViewById(R.id.perizinanButton);
+        ImageView comingSoonButton = view.findViewById(R.id.comingSoonButton);
 
         String name = requireActivity().getIntent().getStringExtra("name");
         if (name != null) {
@@ -75,85 +75,75 @@ public class HomeFragment extends Fragment {
             });
         });
 
-        // --- Aksi untuk tombol PRESENSI ---
+
         presensiButton.setOnClickListener(v -> {
             if (mContext != null && getParentFragmentManager() != null) {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 // Ganti R.id.fragment_container dengan ID container fragmen Anda di layout activity utama
-                fragmentTransaction.replace(R.id.fragment_container, new PresensiContainerFragment());
-                fragmentTransaction.addToBackStack(null); // Memungkinkan kembali ke HomeFragment
+                // Navigasi langsung ke AbsenFragment, default ke "Masuk"
+                fragmentTransaction.replace(R.id.fragment_container, AbsenFragment.newInstance("Masuk"));
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             } else {
                 Toast.makeText(mContext, "Gagal memuat fragmen Absen", Toast.LENGTH_SHORT).show();
             }
         });
+        // --- AKHIR PERUBAHAN ---
 
-        // --- Aksi untuk tombol RIWAYAT ---
+
         riwayatButton.setOnClickListener(v -> {
-            if (isNetworkAvailable()) { // Tetap cek koneksi internet jika riwayat membutuhkan data online
-                if (mContext != null && getParentFragmentManager() != null) {
-                    FragmentManager fragmentManager = getParentFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    // Ganti R.id.fragment_container dengan ID container fragmen Anda di layout activity utama
-                    fragmentTransaction.replace(R.id.fragment_container, new RiwayatFragment());
-                    fragmentTransaction.addToBackStack(null); // Memungkinkan kembali ke HomeFragment
-                    fragmentTransaction.commit();
-                } else {
-                    Toast.makeText(mContext, "Gagal memuat fragmen Riwayat", Toast.LENGTH_SHORT).show();
-                }
+            if (isNetworkAvailable()) {
+                startActivity(new Intent(mContext, RiwayatActivity.class));
             } else {
                 Toast.makeText(mContext, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // --- Aksi untuk tombol PERIZINAN (sebagai Izin) ---
-        perizinanButton.setOnClickListener(v -> {
-            if (mContext != null && getParentFragmentManager() != null) {
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                // Ganti R.id.fragment_container dengan ID container fragmen Anda di layout activity utama
-                fragmentTransaction.replace(R.id.fragment_container, new IzinFragment()); // Asumsi IzinFragment untuk perizinan
-                fragmentTransaction.addToBackStack(null); // Memungkinkan kembali ke HomeFragment
-                fragmentTransaction.commit();
-            } else {
-                Toast.makeText(mContext, "Gagal memuat fragmen Izin", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // --- Aksi untuk tombol COMING SOON (sebagai Cuti) ---
-        // Jika comingSoonButton ini sebenarnya dimaksudkan untuk Cuti, gunakan ini
-        comingSoonButton.setOnClickListener(v -> {
-            if (mContext != null && getParentFragmentManager() != null) {
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                // Ganti R.id.fragment_container dengan ID container fragmen Anda di layout activity utama
-                fragmentTransaction.replace(R.id.fragment_container, new CutiFragment()); // Asumsi CutiFragment untuk comingSoon
-                fragmentTransaction.addToBackStack(null); // Memungkinkan kembali ke HomeFragment
-                fragmentTransaction.commit();
-            } else {
-                Toast.makeText(mContext, "Gagal memuat fragmen Cuti", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Jika Anda tetap ingin tombol "Coming Soon" menampilkan toast, gunakan yang ini:
-        // comingSoonButton.setOnClickListener(v -> Toast.makeText(mContext, "Fitur dalam pengembangan", Toast.LENGTH_SHORT).show());
-
+        perizinanButton.setOnClickListener(v -> showPerizinanDialog());
+        comingSoonButton.setOnClickListener(v -> Toast.makeText(mContext, "Fitur dalam pengembangan", Toast.LENGTH_SHORT).show());
 
         return view;
     }
 
-    // Metode showPresensiDialog() dan showPerizinanDialog() dapat dihapus jika tidak lagi digunakan
-    // karena aksinya sudah diganti untuk langsung membuka fragmen.
-    /*
-    private void showPresensiDialog() {
-        // ... (kode dialog presensi sebelumnya)
-    }
+    // Jika Anda tidak lagi menggunakan dialog presensi, Anda bisa menghapus metode ini.
+    // private void showPresensiDialog() { ... }
 
     private void showPerizinanDialog() {
-        // ... (kode dialog perizinan sebelumnya)
+        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_perizinan_options, null);
+        TextView perizinanPKL = dialogView.findViewById(R.id.perizinanPKL);
+        TextView perizinanPKN = dialogView.findViewById(R.id.perizinanPKN);
+        AlertDialog dialog = new AlertDialog.Builder(mContext).setView(dialogView).create();
+
+        perizinanPKL.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (isNetworkAvailable()) {
+                Intent intent = new Intent(mContext, PerizinanActivity.class);
+                intent.putExtra("KATEGORI", "PKL");
+                startActivity(intent);
+            } else {
+                Toast.makeText(mContext, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        perizinanPKN.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (isNetworkAvailable()) {
+                Intent intent = new Intent(mContext, PerizinanActivity.class);
+                intent.putExtra("KATEGORI", "PKN");
+                startActivity(intent);
+            } else {
+                Toast.makeText(mContext, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
-    */
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);

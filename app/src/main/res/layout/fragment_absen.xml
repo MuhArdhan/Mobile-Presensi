@@ -1,39 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#0270f5" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Presensi"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/absensiTabContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnMasuk"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_tab_selector"
+            android:text="Masuk"
+            android:textColor="@drawable/btn_tab_text_selector"
+            />
+
+        <Button
+            android:id="@+id/btnPulang"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_tab_selector"
+            android:text="Pulang"
+            android:textColor="@drawable/btn_tab_text_selector"
+            />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"> <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal">
-
-        <!-- Tombol Kembali -->
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/back"
-            android:contentDescription="Kembali"
-            android:layout_gravity="start"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Header -->
-
-        <!-- Foto Selfie -->
-        <TextView
-            android:id="@+id/tvHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="@string/form_presensi"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/ivSelfie"
@@ -51,7 +78,6 @@
             android:text="@string/ambil_foto"
             android:layout_marginBottom="24dp"/>
 
-        <!-- Data Auto-filled -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +119,6 @@
                 android:inputType="textMultiLine"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Koordinat GPS -->
         <TextView
             android:id="@+id/tvKoordinat"
             android:layout_width="match_parent"
@@ -108,7 +133,6 @@
             android:text="@string/dapatkan_lokasi"
             android:layout_marginBottom="24dp"/>
 
-        <!-- Tombol Submit -->
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
@@ -116,4 +140,5 @@
             android:text="@string/kirim_presensi"
             android:layout_marginTop="16dp"/>
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>
