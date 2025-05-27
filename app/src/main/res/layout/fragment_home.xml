@@ -72,8 +72,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="end">
+                    android:gravity="end"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -104,10 +104,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 android:weightSum="4">
 
@@ -116,8 +116,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/presensiButton"
@@ -125,23 +125,23 @@
                         android:layout_height="50dp"
                         android:background="@drawable/custom_shape"
                         android:backgroundTint="#de382c"
-                        android:padding="8dp"
-                        android:elevation="8dp"
                         android:clickable="true"
+                        android:contentDescription="@string/absen_button_desc"
+                        android:elevation="8dp"
                         android:focusable="true"
-                        android:stateListAnimator="@animator/button_scale"
                         android:foreground="?attr/selectableItemBackground"
+                        android:padding="8dp"
                         android:src="@drawable/absen"
-                        android:contentDescription="@string/absen_button_desc"/>
+                        android:stateListAnimator="@animator/button_scale" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
                         android:text="@string/presensi"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Button Perizinan -->
@@ -149,8 +149,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/perizinanButton"
@@ -158,32 +158,32 @@
                         android:layout_height="50dp"
                         android:background="@drawable/custom_shape"
                         android:backgroundTint="#0ccf9b"
-                        android:src="@drawable/izin"
-                        android:elevation="8dp"
-                        android:padding="9dp"
                         android:clickable="true"
+                        android:contentDescription="@string/izin_button_desc"
+                        android:elevation="8dp"
                         android:focusable="true"
-                        android:stateListAnimator="@animator/button_scale"
                         android:foreground="?attr/selectableItemBackground"
-                        android:contentDescription="@string/izin_button_desc"/>
+                        android:padding="9dp"
+                        android:src="@drawable/izin"
+                        android:stateListAnimator="@animator/button_scale" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
                         android:text="@string/perizinan"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
-                <!-- Button Comming -->
+                <!-- Button Cuti -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/comingSoonButton"
@@ -191,24 +191,24 @@
                         android:layout_height="50dp"
                         android:background="@drawable/custom_shape"
                         android:backgroundTint="#6C63FF"
-                        android:src="@drawable/cuti"
+                        android:clickable="true"
+                        android:contentDescription="@string/cuti_button_desc"
                         android:drawablePadding="0dp"
                         android:elevation="8dp"
-                        android:padding="8dp"
-                        android:clickable="true"
                         android:focusable="true"
-                        android:stateListAnimator="@animator/button_scale"
                         android:foreground="?attr/selectableItemBackground"
-                        android:contentDescription="@string/cuti_button_desc" />
+                        android:padding="8dp"
+                        android:src="@drawable/cuti"
+                        android:stateListAnimator="@animator/button_scale" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
                         android:text="@string/cuti"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Button Riwayat -->
@@ -216,8 +216,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/riwayatButton"
@@ -225,23 +225,23 @@
                         android:layout_height="50dp"
                         android:background="@drawable/custom_shape"
                         android:backgroundTint="#f59607"
-                        android:src="@drawable/history"
-                        android:elevation="8dp"
-                        android:padding="8dp"
                         android:clickable="true"
+                        android:contentDescription="@string/riwayat_button_desc"
+                        android:elevation="8dp"
                         android:focusable="true"
-                        android:stateListAnimator="@animator/button_scale"
                         android:foreground="?attr/selectableItemBackground"
-                        android:contentDescription="@string/riwayat_button_desc"/>
+                        android:padding="8dp"
+                        android:src="@drawable/history"
+                        android:stateListAnimator="@animator/button_scale" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
                         android:text="@string/riwayat"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -323,128 +323,230 @@
 
     <!--  Container Rekap Bulanan  -->
     <LinearLayout
-        android:id="@+id/absensiContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_keluar"
-        android:elevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/masukPulangContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/masukPulangContainer">
 
-        <!-- Judul -->
-        <TextView
-            android:id="@+id/absensiTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Absensi Bulan (April)"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="12dp"/>
-
-        <!-- Baris item Hadir, Izin, Cuti -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="3">
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <!-- Item Hadir -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/absensiTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="8dp">
+                android:layout_marginEnd="14dp"
+                android:text="Absensi Bulan"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/hadirCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="#6C63FF" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hadir"
-                    android:textSize="14sp"
-                    android:textColor="#333333" />
-            </LinearLayout>
-
-            <!-- Item Izin -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/monthText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="8dp">
+                android:text="Maret"
+                android:textColor="#2E7D32"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/izinCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="#6C63FF" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Izin"
-                    android:textSize="14sp"
-                    android:textColor="#333333" />
-            </LinearLayout>
-
-            <!-- Item Cuti -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/yearText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/cutiCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="#6C63FF" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cuti"
-                    android:textSize="14sp"
-                    android:textColor="#333333" />
-            </LinearLayout>
+                android:layout_marginStart="8dp"
+                android:text="2023"
+                android:textColor="#2E7D32"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:columnOrderPreserved="false"
+            android:rowCount="2">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/hadir"
+                        app:tint="#6C63FF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hadir"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/hadirCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Hari"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/izin_count"
+                        app:tint="#4CAF50" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Izin"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/izinCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Hari"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/cuti_count"
+                        app:tint="#2196F3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cuti"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/cutiCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Hari"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/timer"
+                        app:tint="#FF9800" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Telat"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/telatCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Hari"
+                        android:textColor="#757575"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/logout_button"
         android:layout_width="52dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="12dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/logout_button_desc"
         android:scaleType="centerInside"
         android:src="@drawable/exit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

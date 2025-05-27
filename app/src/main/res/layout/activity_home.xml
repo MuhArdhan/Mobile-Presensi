@@ -35,18 +35,18 @@
 
     <!-- Logo dan Nama Aplikasi -->
 
-        <ImageButton
-            android:id="@+id/logout_button"
-            android:layout_width="52dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/logout_button_desc"
-            android:scaleType="centerInside"
-            android:src="@drawable/exit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/logout_button"-->
+<!--            android:layout_width="52dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:layout_marginEnd="12dp"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:contentDescription="@string/logout_button_desc"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/exit"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     <!--    <ImageView-->
     <!--        android:id="@+id/imageView3"-->
