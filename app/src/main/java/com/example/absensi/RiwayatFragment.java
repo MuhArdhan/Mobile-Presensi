@@ -298,8 +298,6 @@ public class RiwayatFragment extends Fragment {
         }
     }
 
-    // Mengganti nama metode formatTanggal menjadi formatTimestampToDateTime
-    // agar lebih jelas digunakan untuk memformat timestamp ISO 8601 ke tanggal dan waktu
     private String formatTimestampToDateTime(String timestamp) {
         try {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());

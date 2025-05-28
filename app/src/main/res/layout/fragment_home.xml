@@ -28,14 +28,14 @@
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"> <androidx.cardview.widget.CardView
             android:id="@+id/cardContainer"
-            android:layout_width="370dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:background="@drawable/bg_card_login"
             android:elevation="4dp"
             app:cardCornerRadius="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginStart="21dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -92,7 +92,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="94dp"
+                            android:layout_width="79dp"
                             android:layout_height="wrap_content"
                             android:text="08:00:00 - 17:00:00"
                             android:textColor="#333333"
@@ -537,18 +537,28 @@
 
             <ImageButton
                 android:id="@+id/logout_button"
-                android:layout_width="48dp"
+                android:layout_width="42dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="32dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/logout_button_desc"
                 android:scaleType="centerInside"
                 android:src="@drawable/keluar"
-                app:tint="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/cardContainer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.333" />
+                app:layout_constraintVertical_bias="1.0"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="28dp"
+                android:src="@drawable/atten"
+                app:layout_constraintBottom_toTopOf="@+id/cardContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

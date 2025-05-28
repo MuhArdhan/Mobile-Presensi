@@ -186,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="Alasan Cuti"
+                android:text="Detail Cuti"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTotalDaysCuti" /> <EditText
                 android:id="@+id/etReasonCuti"
@@ -195,7 +195,7 @@
                 android:autofillHints=""
                 android:minHeight="48dp"
                 android:textColor="@android:color/black"
-                android:hint="Masukkan Alasan Cuti"
+                android:hint="Masukkan Detail Cuti"
                 android:backgroundTint="@android:color/darker_gray"
                 android:inputType="textMultiLine"
                 android:padding="12dp"

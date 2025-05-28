@@ -1,4 +1,4 @@
-package com.example.absensi; // Pastikan package sesuai
+package com.example.absensi;
 
 import android.Manifest;
 import android.app.Activity;
@@ -91,11 +91,6 @@ public class AbsenFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Factory method untuk membuat instance baru dari fragmen ini.
-     * @param initialType Tipe presensi awal: "Masuk" atau "Pulang".
-     * @return Instance baru dari AbsenFragment.
-     */
     public static AbsenFragment newInstance(String initialType) {
         AbsenFragment fragment = new AbsenFragment();
         Bundle args = new Bundle();
@@ -195,7 +190,7 @@ public class AbsenFragment extends Fragment {
         }
 
         fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(requireActivity(), location -> { // Ganti 'this' dengan 'requireActivity()'
+                .addOnSuccessListener(requireActivity(), location -> {
                     if (location != null) {
                         currentLatLng = location.getLatitude() + "," + location.getLongitude();
                         tvKoordinat.setText(getString(R.string.koordinat, currentLatLng));
@@ -207,7 +202,7 @@ public class AbsenFragment extends Fragment {
                         tvKoordinat.setText(getString(R.string.koordinat_default)); // Set kembali default
                     }
                 })
-                .addOnFailureListener(requireActivity(), e -> { // Juga ganti 'this' di addOnFailureListener
+                .addOnFailureListener(requireActivity(), e -> {
                     Toast.makeText(requireContext(), "Gagal mendapatkan lokasi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     tvKoordinat.setText(getString(R.string.koordinat_default));
                     etLokasi.setText("");
@@ -349,7 +344,7 @@ public class AbsenFragment extends Fragment {
                 );
 
                 Request request = new Request.Builder()
-                        .url("https://script.google.com/macros/s/AKfycbybJiPgC__UHLqG5wdjV6nnfQCmBSdxzNCfkl3V7lZskaplikhYUCWUAcL44LtrYRff/exec") // Ganti dengan URL kamu
+                        .url("https://script.google.com/macros/s/AKfycbybJiPgC__UHLqG5wdjV6nnfQCmBSdxzNCfkl3V7lZskaplikhYUCWUAcL44LtrYRff/exec")
                         .post(body)
                         .build();
 
@@ -359,7 +354,7 @@ public class AbsenFragment extends Fragment {
                         runOnUiThread(() -> { // Pindah ke UI thread
                             progressDialog.dismiss(); // Tutup loading
                             Toast.makeText(
-                                    requireContext(), // Ganti 'PresensiActivity.this' dengan 'requireContext()'
+                                    requireContext(),
                                     "Gagal mengirim data: " + e.getMessage(),
                                     Toast.LENGTH_SHORT
                             ).show();
@@ -373,7 +368,7 @@ public class AbsenFragment extends Fragment {
                             try {
                                 ResponseBody responseBodyObj = response.body();
                                 if (responseBodyObj == null) {
-                                    Toast.makeText(requireContext(), "Response kosong", Toast.LENGTH_SHORT).show(); // Ganti 'PresensiActivity.this'
+                                    Toast.makeText(requireContext(), "Response kosong", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
 
@@ -381,7 +376,7 @@ public class AbsenFragment extends Fragment {
                                 JSONObject jsonResponse = new JSONObject(responseBody);
                                 if ("success".equals(jsonResponse.getString("status"))) {
                                     Toast.makeText(
-                                            requireContext(), // Ganti 'PresensiActivity.this'
+                                            requireContext(),
                                             "Presensi berhasil!",
                                             Toast.LENGTH_SHORT
                                     ).show();
@@ -390,7 +385,7 @@ public class AbsenFragment extends Fragment {
                                     getParentFragmentManager().popBackStack();
                                 } else {
                                     Toast.makeText(
-                                            requireContext(), // Ganti 'PresensiActivity.this'
+                                            requireContext(),
                                             "Error: " + jsonResponse.getString("message"),
                                             Toast.LENGTH_SHORT
                                     ).show();
@@ -398,7 +393,7 @@ public class AbsenFragment extends Fragment {
                             } catch (Exception e) {
                                 Log.e("AbsenFragment", "Error parsing response", e);
                                 Toast.makeText(
-                                        requireContext(), // Ganti 'PresensiActivity.this'
+                                        requireContext(),
                                         "Error parsing response",
                                         Toast.LENGTH_SHORT
                                 ).show();
@@ -411,7 +406,7 @@ public class AbsenFragment extends Fragment {
                 runOnUiThread(() -> { // Pindah ke UI thread
                     progressDialog.dismiss(); // Tutup loading jika ada exception
                     Log.e("AbsenFragment", "Error sending data", e);
-                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show(); // Ganti 'PresensiActivity.this'
+                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
             }
         });
@@ -455,9 +450,6 @@ public class AbsenFragment extends Fragment {
         } else {
             Log.e("AbsenFragment", "ERROR: etKategori is NULL when setting text!"); // Log 3: Ini seharusnya tidak terjadi
         }
-
-        // Misalnya, mengubah warna header atau pesan tertentu.
-        Toast.makeText(getContext(), "Form Presensi: " + currentPresensiType, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -478,13 +470,12 @@ public class AbsenFragment extends Fragment {
                     // 'this' di Glide.with(this) ini benar karena Glide memiliki overload untuk Fragment
                     Glide.with(this).load(fotoUri).into(ivSelfie);
                 } else {
-                    Toast.makeText(requireContext(), "Gagal mendapatkan URI foto.", Toast.LENGTH_SHORT).show(); // Ganti 'this' dengan 'requireContext()'
+                    Toast.makeText(requireContext(), "Gagal mendapatkan URI foto.", Toast.LENGTH_SHORT).show();
                 }
             } else if (resultCode == ImagePicker.RESULT_ERROR) { // Jika Anda menggunakan ImagePicker library
-                String errorMessage = ImagePicker.Companion.getError(data); // <-- Pertahankan ini atau sesuaikan jika masih error
-                Toast.makeText(requireContext(), "Error mengambil gambar: " + errorMessage, Toast.LENGTH_LONG).show(); // Ganti 'this' dengan 'requireContext()'
+                String errorMessage = ImagePicker.Companion.getError(data); // <-- Pertahankan ini atau sesuaikan jika masih
             } else {
-                Toast.makeText(requireContext(), "Pengambilan gambar dibatalkan", Toast.LENGTH_SHORT).show(); // Ganti 'this' dengan 'requireContext()'
+                Toast.makeText(requireContext(), "Pengambilan gambar dibatalkan", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -498,7 +489,7 @@ public class AbsenFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation();
             } else {
-                Toast.makeText(requireContext(), R.string.izin_lokasi_diperlukan, Toast.LENGTH_SHORT).show(); // Ganti 'this' dengan 'requireContext()'
+                Toast.makeText(requireContext(), R.string.izin_lokasi_diperlukan, Toast.LENGTH_SHORT).show();
                 // Tambahkan juga set text default jika izin tidak diberikan
                 tvKoordinat.setText(getString(R.string.koordinat_default));
                 etLokasi.setText("");

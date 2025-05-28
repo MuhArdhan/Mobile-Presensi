@@ -75,16 +75,15 @@ public class IzinFragment extends Fragment {
         // Karena fragment ini KHUSUS untuk Izin, set kategori secara hardcode
         kategoriPerizinan = "Izin";
         etCategory.setText(kategoriPerizinan);
-        etCategory.setEnabled(false); // Opsional: Nonaktifkan EditText agar tidak bisa diubah user
-        etCategory.setFocusable(false); // Opsional: Hilangkan fokus saat disentuh
-        etCategory.setClickable(false); // Opsional: Hilangkan kemampuan klik
-
+        etCategory.setEnabled(false);
+        etCategory.setFocusable(false);
+        etCategory.setClickable(false);
 
         // Prefill nama pengguna dari Firebase Auth
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             etName.setText(user.getDisplayName());
-            etName.setEnabled(false); // Opsional: Nonaktifkan EditText nama
+            etName.setEnabled(false);
             etName.setFocusable(false);
             etName.setClickable(false);
         } else {
@@ -196,7 +195,7 @@ public class IzinFragment extends Fragment {
                 );
 
                 Request request = new Request.Builder()
-                        .url("https://script.google.com/macros/s/AKfycbybJiPgC__UHLqG5wdjV6nnfQCmBSdxzNCfkl3V7lZskaplikhYUCWUAcL44LtrYRff/exec") // ganti dengan URL kamu
+                        .url("https://script.google.com/macros/s/AKfycbybJiPgC__UHLqG5wdjV6nnfQCmBSdxzNCfkl3V7lZskaplikhYUCWUAcL44LtrYRff/exec")
                         .post(body)
                         .build();
 

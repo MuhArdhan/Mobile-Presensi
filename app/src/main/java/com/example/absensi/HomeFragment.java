@@ -214,15 +214,10 @@ public class HomeFragment extends Fragment {
             Log.d("HomeFragment", "Daily attendance loaded from SharedPreferences.");
         }
 
-        // TODO: Anda perlu memperbarui jamMasuk dan jamPulang ini
-        //       setelah pengguna berhasil presensi. Ada 2 opsi:
-        //       1. AbsenFragment menyimpan waktu ke SharedPreferences, HomeFragment membaca dari sana.
-        //       2. HomeFragment query ke backend (Google Sheet) untuk mendapatkan waktu presensi hari ini.
-        //          Opsi 2 lebih robust. Contoh implementasi opsi 2:
         fetchDailyAttendanceFromBackend();
     }
 
-    // --- LOGIKA PENGAMBILAN ABSENSI HARIAN DARI BACKEND (CONTOH) ---
+    // --- LOGIKA PENGAMBILAN ABSENSI HARIAN DARI BACKEND ---
     // Fungsi ini akan query Google Apps Script untuk absen Masuk/Pulang hari ini
     private void fetchDailyAttendanceFromBackend() {
         if (currentUser == null) {
@@ -234,8 +229,6 @@ public class HomeFragment extends Fragment {
         String todayDate = dateFormat.format(new Date());
         String userId = currentUser.getUid(); // Dapatkan User ID Firebase
 
-        // URL Google Apps Script untuk mengambil data (Anda perlu menambahkan fungsi doGet di Apps Script)
-        // Contoh: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=getDailyAttendance&userId=...&date=...
         String url = "https://script.google.com/macros/s/AKfycbybJiPgC__UHLqG5wdjV6nnfQCmBSdxzNCfkl3V7lZskaplikhYUCWUAcL44LtrYRff/exec" +
                 "?action=getDailyAttendance" +
                 "&userId=" + userId +
@@ -265,6 +258,11 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonResponse = new JSONObject(responseBody);
                         String status = jsonResponse.optString("status");
 
+                        if (!isAdded()) {
+                            Log.w("HomeFragment", "Fragment not attached, skipping daily attendance UI updates.");
+                            return; // Exit if fragment is not attached
+                        }
+
                         if ("success".equals(status)) {
                             JSONObject data = jsonResponse.optJSONObject("data");
                             if (data != null) {
@@ -289,8 +287,10 @@ public class HomeFragment extends Fragment {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.remove(KEY_JAM_MASUK).remove(KEY_JAM_PULANG).apply(); // Pastikan bersih
                                 requireActivity().runOnUiThread(() -> {
-                                    jamMasukTextView.setText("--:--:--");
-                                    jamPulangTextView.setText("--:--:--");
+                                    if (isAdded()) {
+                                        jamMasukTextView.setText("--:--:--");
+                                        jamPulangTextView.setText("--:--:--");
+                                    }
                                 });
                             }
                         } else {
@@ -327,7 +327,7 @@ public class HomeFragment extends Fragment {
         fetchMonthlyRecapFromBackend(currentMonthName, currentYear);
     }
 
-    // --- LOGIKA PENGAMBILAN REKAP BULANAN DARI BACKEND (CONTOH) ---
+    // --- LOGIKA PENGAMBILAN REKAP BULANAN DARI BACKEND ---
     private void fetchMonthlyRecapFromBackend(String monthName, int year) {
         if (currentUser == null) {
             Log.w("HomeFragment", "User not logged in, cannot fetch monthly recap.");
@@ -336,9 +336,6 @@ public class HomeFragment extends Fragment {
 
         String userId = currentUser.getUid();
 
-        // URL Google Apps Script untuk mengambil data rekap bulanan
-        // Contoh: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=getMonthlyRecap&userId=...&month=...&year=...
-        // Perhatikan bahwa monthName di Apps Script mungkin perlu dikonversi ke format angka (1-12)
         String url = "https://script.google.com/macros/s/AKfycbybJiPgC__UHLqG5wdjV6nnfQCmBSdxzNCfkl3V7lZskaplikhYUCWUAcL44LtrYRff/exec" +
                 "?action=getMonthlyRecap" +
                 "&userId=" + userId +
@@ -369,6 +366,11 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonResponse = new JSONObject(responseBody);
                         String status = jsonResponse.optString("status");
 
+                        if (!isAdded()) {
+                            Log.w("HomeFragment", "Fragment not attached, skipping UI updates.");
+                            return; // Exit if fragment is not attached
+                        }
+
                         StringBuilder debugLogMessage = new StringBuilder("Debug Logs from Script:\n");
                         if (jsonResponse.has("debugLogs")) {
                             org.json.JSONArray logsArray = jsonResponse.getJSONArray("debugLogs");
@@ -389,11 +391,13 @@ public class HomeFragment extends Fragment {
                                 int telat = data.optInt("telat", 0);
 
                                 requireActivity().runOnUiThread(() -> {
-                                    hadirCountTextView.setText(hadir + " Hari");
-                                    izinCountTextView.setText(izin + " Hari");
-                                    cutiCountTextView.setText(cuti + " Hari");
-                                    telatCountTextView.setText(telat + " Hari");
-                                    Log.d("HomeFragment", "Monthly recap updated from backend.");
+                                    if (isAdded()) { // Check again before updating UI
+                                        hadirCountTextView.setText(hadir + " Hari");
+                                        izinCountTextView.setText(izin + " Hari");
+                                        cutiCountTextView.setText(cuti + " Hari");
+                                        telatCountTextView.setText(telat + " Hari");
+                                        Log.d("HomeFragment", "Monthly recap updated from backend.");
+                                    }
                                 });
                             } else {
                                 Log.d("HomeFragment", "No monthly recap data found.");

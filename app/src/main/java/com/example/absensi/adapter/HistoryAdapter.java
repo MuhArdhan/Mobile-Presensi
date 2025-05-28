@@ -61,13 +61,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             holder.tvTime.setVisibility(View.VISIBLE); // Waktu pengajuan
             holder.tvCategory.setVisibility(View.VISIBLE); // Kategori Izin
             holder.tvReason.setVisibility(View.VISIBLE); // Alasan
-            holder.tvFileLink.setVisibility(View.VISIBLE); // Link file
 
             holder.tvDate.setText("Diajukan: " + currentItem.getTanggalPengajuanIzin());
             holder.tvTime.setText("Pukul: " + currentItem.getWaktuPengajuanIzin());
             holder.tvCategory.setText("Jenis: " + currentItem.getKategoriIzin());
-            holder.tvReason.setText("Alasan: " + currentItem.getAlasanIzin());
-            holder.tvFileLink.setText("File: " + (currentItem.getFileUrlIzin() != null && !currentItem.getFileUrlIzin().isEmpty() ? "Lihat Dokumen" : "Tidak ada"));
+            holder.tvReason.setText("Detail: " + currentItem.getAlasanIzin());
             // Tambahkan listener untuk klik link file jika ada
         } else if (currentItem.getType().equals("cuti")) {
             holder.tvCategory.setVisibility(View.VISIBLE); // Jenis Cuti
@@ -75,14 +73,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             holder.tvEndDate.setVisibility(View.VISIBLE);
             holder.tvTotalDays.setVisibility(View.VISIBLE);
             holder.tvReason.setVisibility(View.VISIBLE); // Alasan Cuti
-            holder.tvFileLink.setVisibility(View.VISIBLE); // Link file
 
             holder.tvCategory.setText("Jenis Cuti: " + currentItem.getJenisCuti());
             holder.tvStartDate.setText("Mulai: " + currentItem.getTanggalMulaiCuti());
             holder.tvEndDate.setText("Selesai: " + currentItem.getTanggalSelesaiCuti());
             holder.tvTotalDays.setText("Total: " + currentItem.getTotalHariCuti());
-            holder.tvReason.setText("Alasan: " + currentItem.getAlasanCuti());
-            holder.tvFileLink.setText("File: " + (currentItem.getFileUrlCuti() != null && !currentItem.getFileUrlCuti().isEmpty() ? "Lihat Dokumen" : "Tidak ada"));
+            holder.tvReason.setText("Detail: " + currentItem.getAlasanCuti());
             // Tambahkan listener untuk klik link file jika ada
         }
     }

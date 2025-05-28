@@ -198,9 +198,9 @@ public class CutiFragment extends Fragment {
                     calculateTotalDays();
                 }, year, month, day);
 
-        // Opsional: Batasi tanggal yang bisa dipilih (misal, tidak bisa di masa lalu)
+
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // Mulai dari hari ini
-        // Atau batasi agar tanggal selesai tidak sebelum tanggal mulai
+
         if (editText == etEndDateCuti && startDateCalendar != null) {
             datePickerDialog.getDatePicker().setMinDate(startDateCalendar.getTimeInMillis());
         }
@@ -259,11 +259,6 @@ public class CutiFragment extends Fragment {
             etReasonCuti.setError("Alasan cuti harus diisi");
             return;
         }
-        // Opsional: Validasi file jika wajib
-        // if (fileUri == null) {
-        //     Toast.makeText(requireContext(), "File PDF diperlukan", Toast.LENGTH_SHORT).show();
-        //     return;
-        // }
 
         // Tampilkan dialog konfirmasi
         new AlertDialog.Builder(requireContext())
