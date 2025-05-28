@@ -60,4 +60,17 @@
     <string name="submit">Submit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="jenis_cuti_array">
+        <item>Pilih Jenis Cuti</item> <item>Cuti Tahunan</item>
+        <item>Cuti Sakit</item>
+        <item>Cuti Melahirkan</item>
+        <item>Cuti Pernikahan</item>
+        <item>Cuti Kematian</item>
+        <item>Cuti Lain-lain</item>
+    </string-array>
+
+    <string name="konfirmasi_isi_cuti">Anda akan mengajukan cuti %2$s untuk %1$s dari tanggal %3$s hingga %4$s, selama %5$s dengan alasan: %6$s.\n\nLanjutkan?</string>
+
 </resources>

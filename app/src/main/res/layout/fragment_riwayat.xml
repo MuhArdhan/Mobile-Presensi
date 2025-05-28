@@ -1,21 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RiwayatFragment">
+    android:orientation="vertical" >
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        android:gravity="center" android:orientation="vertical">
+        android:id="@+id/linearLayoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0270f5"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
 
         <TextView
+            android:id="@+id/tvTitleCuti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Halaman Riwayat"
-            android:textSize="20sp" />
+            android:layout_margin="20dp"
+            android:text="Riwayat"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 
-</FrameLayout>
+    <!-- Tombol Pilihan Presensi atau Perizinan -->
+    <LinearLayout
+        android:id="@+id/tabContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnPresensi"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="52dp"
+            android:background="@drawable/btn_tab_selector"
+            android:text="Presensi"
+            android:textColor="#000000"/>
+
+        <Button
+            android:id="@+id/btnPerizinan"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="52dp"
+            android:background="@drawable/btn_tab_selector"
+            android:text="Perizinan"
+            android:textColor="#000000"/>
+
+        <Button
+            android:id="@+id/btnCuti"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="52dp"
+            android:background="@drawable/btn_tab_selector"
+            android:text="Pengajuan Cuti"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/emptyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Belum ada data."
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <!-- RecyclerView untuk isi -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/riwayatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="15dp"
+        android:contentDescription="Daftar riwayat"/>
+
+</LinearLayout>

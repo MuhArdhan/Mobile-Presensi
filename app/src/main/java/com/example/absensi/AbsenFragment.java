@@ -341,6 +341,8 @@ public class AbsenFragment extends Fragment {
                 json.put("fotoBase64", base64Image);
                 json.put("userId", userId);
 
+                json.put("action", "submit_attendance");
+
                 RequestBody body = RequestBody.create(
                         json.toString(),
                         MediaType.get("application/json")
