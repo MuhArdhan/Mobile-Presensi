@@ -1,6 +1,7 @@
 package com.example.absensi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.absensi.adapter.HistoryAdapter; // Menggunakan HistoryAdapter
-import com.example.absensi.model.HistoryItemModel; // Menggunakan HistoryItemModel
+import com.example.absensi.adapter.HistoryAdapter;
+import com.example.absensi.model.HistoryItemModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,16 +34,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.TimeZone; // Tambahkan import ini
+import java.util.TimeZone;
 
 public class RiwayatFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private HistoryAdapter historyAdapter; // Ganti dengan HistoryAdapter
-    private ArrayList<HistoryItemModel> historyList; // Ganti dengan HistoryItemModel
+    private static final String TAG = "RiwayatFragment";
 
-    // URL GET untuk Riwayat (Presensi, Perizinan, Cuti)
-    private static final String URL_BASE_GET_HISTORY = "https://script.google.com/macros/s/AKfycbwRN5kSDPHwTTEeNjiXcoe2nZI-zILjJeruiu5FZk3GMrzLAhxcdfQ8KK1ro5BDCz8QJg/exec"; // Ganti dengan URL doGet Anda
+    private RecyclerView recyclerView;
+    private HistoryAdapter historyAdapter;
+    private ArrayList<HistoryItemModel> historyList;
+
+    private static final String URL_BASE_GET_HISTORY = "https://script.google.com/macros/s/AKfycbybJiPgC__UHLqG5wdjV6nnfQCmBSdxzNCfkl3V7lZskaplikhYUCWUAcL44LtrYRff/exec";
 
     private Button btnPresensi, btnPerizinan, btnCuti;
     private String namaUser;
@@ -58,15 +60,15 @@ public class RiwayatFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_riwayat, container, false);
-        return view;
+        Log.d(TAG, "onCreateView: Fragment Riwayat dimulai.");
+        return inflater.inflate(R.layout.fragment_riwayat, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated: View telah dibuat.");
 
-        // Inisialisasi View
         recyclerView = view.findViewById(R.id.riwayatRecyclerView);
         emptyText = view.findViewById(R.id.emptyText);
         progressBar = view.findViewById(R.id.progressBar);
@@ -75,52 +77,48 @@ public class RiwayatFragment extends Fragment {
         btnPerizinan = view.findViewById(R.id.btnPerizinan);
         btnCuti = view.findViewById(R.id.btnCuti);
 
-        // Setup RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Inisialisasi ArrayList
-        historyList = new ArrayList<>(); // Hanya satu list
-
-        // Inisialisasi Adapter
-        historyAdapter = new HistoryAdapter(historyList); // Menggunakan HistoryAdapter
+        historyList = new ArrayList<>();
+        historyAdapter = new HistoryAdapter(historyList);
         recyclerView.setAdapter(historyAdapter);
 
-        // Ambil nama dan ID user dari FirebaseAuth
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             namaUser = user.getDisplayName();
             userId = user.getUid();
+            Log.d(TAG, "User logged in: namaUser=" + namaUser + ", userId=" + userId);
         } else {
             namaUser = "Pengguna Tidak Dikenal";
             userId = "unknown_user";
-            // Jika user tidak dikenal, mungkin arahkan ke halaman login atau tampilkan pesan
+            Log.w(TAG, "User not logged in. userId set to 'unknown_user'.");
             Toast.makeText(requireContext(), "Harap login untuk melihat riwayat.", Toast.LENGTH_LONG).show();
             showEmptyText(true, "Harap login untuk melihat riwayat.");
-            return; // Penting: keluar dari onViewCreated jika user tidak ada
+            return;
         }
 
-        // Default tampilkan riwayat Presensi saat fragment dibuat
         highlightButton(btnPresensi, btnPerizinan, btnCuti);
-        fetchHistory("presensi"); // Panggil fetchHistory dengan tipe "presensi"
+        fetchHistory("presensi");
 
-        // Set Listener untuk tombol tab
         btnPresensi.setOnClickListener(v -> {
+            Log.d(TAG, "btnPresensi clicked. Fetching 'presensi' history.");
             highlightButton(btnPresensi, btnPerizinan, btnCuti);
             fetchHistory("presensi");
         });
 
         btnPerizinan.setOnClickListener(v -> {
+            Log.d(TAG, "btnPerizinan clicked. Fetching 'perizinan' history.");
             highlightButton(btnPerizinan, btnPresensi, btnCuti);
             fetchHistory("perizinan");
         });
 
         btnCuti.setOnClickListener(v -> {
+            Log.d(TAG, "btnCuti clicked. Fetching 'cuti' history.");
             highlightButton(btnCuti, btnPresensi, btnPerizinan);
             fetchHistory("cuti");
         });
     }
 
-    // Metode untuk mengelola highlight tombol tab
     private void highlightButton(Button activeButton, Button... inactiveButtons) {
         activeButton.setAlpha(1f);
         for (Button button : inactiveButtons) {
@@ -128,83 +126,131 @@ public class RiwayatFragment extends Fragment {
         }
     }
 
-    // Metode umum untuk mengambil semua jenis riwayat
     private void fetchHistory(String type) {
-        historyList.clear(); // Bersihkan list sebelum memuat data baru
-        historyAdapter.notifyDataSetChanged(); // Beri tahu adapter bahwa data telah dihapus
+        historyList.clear();
+        historyAdapter.notifyDataSetChanged();
 
+        Log.d(TAG, "fetchHistory: Memuat data riwayat untuk tipe: " + type + ", userId: " + userId);
         showEmptyText(false);
         showLoading(true);
 
-        String url = URL_BASE_GET_HISTORY;
-        url += "?action=getHistory&type=" + type + "&userId=" + userId;
+        String url = URL_BASE_GET_HISTORY + "?action=getHistory&type=" + type + "&userId=" + userId;
+
+        Log.d(TAG, "Request URL: " + url);
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
                     showLoading(false);
+                    Log.d(TAG, "Volley Response: " + response);
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         JSONArray dataArray = jsonObject.getJSONArray("data");
 
+                        Log.d(TAG, "Number of items in dataArray (raw from server): " + dataArray.length());
+
                         if (dataArray.length() == 0) {
                             showEmptyText(true, "Belum ada data " + type + ".");
+                            Log.d(TAG, "Data array kosong dari server.");
                             return;
                         }
 
                         for (int i = 0; i < dataArray.length(); i++) {
                             JSONObject item = dataArray.getJSONObject(i);
 
-                            String serverUserId = item.optString("userId", "");
+                            String serverUserId = item.optString("userId", "NO_USER_ID_IN_JSON");
+                            Log.d(TAG, "Processing item " + (i + 1) + ": serverUserId = '" + serverUserId + "', current userId = '" + userId + "'");
 
-                            // Filter berdasarkan userId yang log-in
                             if (serverUserId.equalsIgnoreCase(userId)) {
+                                Log.d(TAG, "Matching userId found. Adding item for type: " + type + ". Item JSON: " + item.toString());
+
                                 if (type.equals("presensi")) {
                                     String nama = item.optString("nama", "");
-                                    String timestamp = item.optString("timestampRaw", ""); // Gunakan timestampRaw dari Apps Script
-                                    String waktuPresensi = item.optString("waktuPresensi", "");
-                                    String tanggal = formatTanggal(timestamp);
+                                    String timestampRaw = item.optString("timestampRaw", ""); // Use timestampRaw for date
+                                    String waktuPresensi = item.optString("waktuPresensi", ""); // Already formatted HH:mm:ss from Apps Script
+                                    String tanggal = formatTimestampToDateTime(timestampRaw); // Use the general formatter
                                     String kategori = item.optString("kategori", "");
                                     String lokasi = item.optString("lokasi", "");
                                     String koordinat = item.optString("koordinat", "");
                                     String imageUrl = item.optString("imageUrl", "");
 
+                                    Log.d(TAG, "Presensi Data: Nama=" + nama + ", Tanggal=" + tanggal + ", Waktu=" + waktuPresensi + ", Kategori=" + kategori);
                                     historyList.add(new HistoryItemModel(type, nama, userId, tanggal, waktuPresensi, kategori, lokasi, koordinat, imageUrl));
 
                                 } else if (type.equals("perizinan")) {
                                     String nama = item.optString("nama", "");
-                                    String kategoriIzin = item.optString("kategori", ""); // Harusnya "Izin"
+                                    String kategoriIzin = item.optString("kategori", "");
                                     String alasan = item.optString("alasan", "");
-                                    String tanggalPengajuan = item.optString("tanggalPengajuan", "");
-                                    String waktuPengajuan = item.optString("waktuPengajuan", "");
+                                    String timestampPengajuanRaw = item.optString("timestampRaw", ""); // Use timestampRaw for date
+                                    String waktuPengajuan = item.optString("waktuPengajuan", ""); // Already formatted HH:mm:ss from Apps Script
+
+                                    // Format tanggalPengajuan dari timestampRaw
+                                    String tanggalPengajuan = formatTimestampToDateTime(timestampPengajuanRaw);
                                     String fileUrl = item.optString("fileUrl", "");
 
+                                    Log.d(TAG, "Perizinan Data: Nama=" + nama + ", Kategori=" + kategoriIzin + ", Alasan=" + alasan + ", Tanggal Pengajuan=" + tanggalPengajuan + ", Waktu Pengajuan=" + waktuPengajuan);
                                     historyList.add(new HistoryItemModel(type, nama, userId, kategoriIzin, alasan, tanggalPengajuan, waktuPengajuan, fileUrl));
 
                                 } else if (type.equals("cuti")) {
                                     String nama = item.optString("nama", "");
-                                    String jenisCuti = item.optString("jenisCuti", ""); // Key dari Apps Script untuk jenis cuti
-                                    String tanggalMulai = item.optString("tanggalMulai", "");
-                                    String tanggalSelesai = item.optString("tanggalSelesai", "");
+                                    String jenisCuti = item.optString("jenisCuti", "");
+                                    // Ambil raw timestamp untuk tanggalMulai dan tanggalSelesai
+                                    String rawTanggalMulai = item.optString("tanggalMulai", "");
+                                    String rawTanggalSelesai = item.optString("tanggalSelesai", "");
+
                                     String totalHari = item.optString("totalHari", "");
                                     String alasanCuti = item.optString("alasan", "");
-                                    String tanggalPengajuan = item.optString("tanggalPengajuan", "");
+                                    String timestampPengajuanRaw = item.optString("timestampRaw", "");
                                     String waktuPengajuan = item.optString("waktuPengajuan", "");
+
+                                    // Format tanggalMulai dan tanggalSelesai menggunakan fungsi yang sudah ada
+                                    String tanggalMulaiFormatted = formatTimestampToDateTime(rawTanggalMulai);
+                                    String tanggalSelesaiFormatted = formatTimestampToDateTime(rawTanggalSelesai);
+                                    String tanggalPengajuan = formatTimestampToDateTime(timestampPengajuanRaw);
+
                                     String fileUrl = item.optString("fileUrl", "");
 
-                                    historyList.add(new HistoryItemModel(type, nama, userId, jenisCuti, tanggalMulai, tanggalSelesai, totalHari, alasanCuti, tanggalPengajuan, waktuPengajuan, fileUrl));
+                                    Log.d(TAG, "Cuti Data: Nama=" + nama +
+                                            ", Jenis Cuti=" + jenisCuti +
+                                            ", Mulai=" + tanggalMulaiFormatted + // Gunakan yang sudah diformat
+                                            ", Selesai=" + tanggalSelesaiFormatted + // Gunakan yang sudah diformat
+                                            ", Total Hari=" + totalHari +
+                                            ", Tanggal Pengajuan=" + tanggalPengajuan +
+                                            ", Waktu Pengajuan=" + waktuPengajuan);
+
+                                    // Pastikan HistoryItemModel memiliki constructor yang sesuai
+                                    historyList.add(new HistoryItemModel(
+                                            type,
+                                            nama,
+                                            userId,
+                                            jenisCuti,
+                                            tanggalMulaiFormatted, // Kirim yang sudah diformat
+                                            tanggalSelesaiFormatted, // Kirim yang sudah diformat
+                                            totalHari,
+                                            alasanCuti,
+                                            tanggalPengajuan,
+                                            waktuPengajuan,
+                                            fileUrl
+                                    ));
                                 }
+                            } else {
+                                Log.d(TAG, "Skipping item due to userId mismatch.");
                             }
                         }
 
-                        historyAdapter.notifyDataSetChanged(); // Notifikasi adapter setelah data dimuat
+                        historyAdapter.notifyDataSetChanged();
+                        Log.d(TAG, "Total items added to historyList after filter: " + historyList.size());
 
                         if (historyList.isEmpty()) {
                             showEmptyText(true, "Belum ada data " + type + ".");
+                            Log.d(TAG, "historyList kosong setelah filtering. Menampilkan pesan kosong.");
+                        } else {
+                            showEmptyText(false);
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.e(TAG, "JSON Parsing Error: " + e.getMessage(), e);
                         Toast.makeText(requireContext(), "Gagal parsing data riwayat", Toast.LENGTH_SHORT).show();
                         showEmptyText(true, "Error parsing data.");
                     }
@@ -212,6 +258,7 @@ public class RiwayatFragment extends Fragment {
                 error -> {
                     showLoading(false);
                     error.printStackTrace();
+                    Log.e(TAG, "Volley Error: " + error.getMessage(), error);
                     Toast.makeText(requireContext(), "Gagal mengambil data riwayat", Toast.LENGTH_SHORT).show();
                     showEmptyText(true, "Gagal memuat data.");
                 });
@@ -228,9 +275,11 @@ public class RiwayatFragment extends Fragment {
             recyclerView.setVisibility(View.GONE);
             emptyText.setVisibility(View.VISIBLE);
             emptyText.setText(message);
+            Log.d(TAG, "Showing empty text: " + message);
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             emptyText.setVisibility(View.GONE);
+            Log.d(TAG, "Hiding empty text.");
         }
     }
 
@@ -239,34 +288,50 @@ public class RiwayatFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
             emptyText.setVisibility(View.GONE);
+            Log.d(TAG, "Showing ProgressBar.");
         } else {
             progressBar.setVisibility(View.GONE);
-            // Hanya tampilkan RecyclerView jika tidak ada emptyText yang perlu ditampilkan
             if (emptyText.getVisibility() != View.VISIBLE) {
                 recyclerView.setVisibility(View.VISIBLE);
             }
+            Log.d(TAG, "Hiding ProgressBar.");
         }
     }
 
-    // Helper untuk format tanggal dari timestamp ISO 8601
-    private String formatTanggal(String timestamp) {
+    // Mengganti nama metode formatTanggal menjadi formatTimestampToDateTime
+    // agar lebih jelas digunakan untuk memformat timestamp ISO 8601 ke tanggal dan waktu
+    private String formatTimestampToDateTime(String timestamp) {
         try {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC")); // Penting: TimeZone harus UTC jika Apps Script mengirim 'Z'
+            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date date = inputFormat.parse(timestamp);
 
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm", new Locale("id", "ID")); // Tambah jam juga
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm", new Locale("id", "ID"));
             assert date != null;
-            return outputFormat.format(date);
+            String formattedDate = outputFormat.format(date);
+            Log.d(TAG, "Formatted timestamp '" + timestamp + "' to: " + formattedDate);
+            return formattedDate;
         } catch (Exception e) {
-            android.util.Log.e("RiwayatFragment", "Error formatting timestamp: " + timestamp, e);
+            Log.e(TAG, "Error formatting timestamp: " + timestamp, e);
             return "-";
         }
     }
 
-    // Normalisasi string (untuk perbandingan)
-    private String normalize(String input) {
-        if (input == null) return "";
-        return input.trim().replaceAll("\\s+", " ");
-    }
+    // Fungsi formatWaktuPresensi tidak lagi diperlukan jika Apps Script sudah memformatnya
+    // private String formatWaktuPresensi(String timestampWaktu) {
+    //     try {
+    //         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+    //         inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    //         Date date = inputFormat.parse(timestampWaktu);
+    //
+    //         SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+    //         assert date != null;
+    //         String formattedTime = outputFormat.format(date);
+    //         Log.d(TAG, "Formatted time '" + timestampWaktu + "' to: " + formattedTime);
+    //         return formattedTime;
+    //     } catch (Exception e) {
+    //         Log.e(TAG, "Error formatting time: " + timestampWaktu, e);
+    //         return "-";
+    //     }
+    // }
 }

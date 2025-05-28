@@ -76,7 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ambil_foto"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/selectfile"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -131,14 +132,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dapatkan_lokasi"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/selectfile"/>
 
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/kirim_presensi"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/submit"/>
     </LinearLayout>
     </ScrollView>
 </LinearLayout>
