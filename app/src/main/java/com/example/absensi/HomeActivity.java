@@ -24,10 +24,12 @@ import android.view.ViewGroup;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
@@ -38,175 +40,36 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Inisialisasi komponen UI
-        TextView welcomeText = findViewById(R.id.textView2);
-        ImageButton logoutButton = findViewById(R.id.logout_button);
-        ImageView presensiButton = findViewById(R.id.presensiButton);
-        ImageView riwayatButton = findViewById(R.id.riwayatButton);
-        ImageView perizinanButton = findViewById(R.id.perizinanButton);
-        ImageView comingSoonButton = findViewById(R.id.comingSoonButton);
-
-        // Set welcome message dengan nama pengguna
-        String name = getIntent().getStringExtra("name");
-        if (name != null) {
-            welcomeText.setText(name);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment()) // Ganti ID container sesuai layout kamu
+                    .commit();
         }
 
-        // Logout button
-        logoutButton.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            int id = item.getItemId();
 
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
-
-            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(HomeActivity.this, gso);
-            googleSignInClient.signOut().addOnCompleteListener(task -> {
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-            });
-        });
-
-        // Presensi button
-        presensiButton.setOnClickListener(v -> showPresensiDialog());
-
-        // Riwayat button
-        riwayatButton.setOnClickListener(v -> {
-            if (isNetworkAvailable()) {
-                Intent intent = new Intent(HomeActivity.this, RiwayatActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
-            } else {
-                Toast.makeText(this, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
+            if (id == R.id.nav_home) {
+                selectedFragment = new HomeFragment();
+            } else if (id == R.id.nav_absen) {
+                selectedFragment = new AbsenFragment();
+            } else if (id == R.id.nav_izin) {
+                selectedFragment = new IzinFragment();
+            } else if (id == R.id.nav_cuti) {
+                selectedFragment = new CutiFragment();
+            } else if (id == R.id.nav_riwayat) {
+                selectedFragment = new RiwayatFragment();
             }
-        });
 
-        // Perizinan button (opsional)
-        perizinanButton.setOnClickListener(v -> showPerizinanDialog());
-
-        // Coming soon button
-        comingSoonButton.setOnClickListener(v -> Toast.makeText(this, "Fitur dalam pengembangan", Toast.LENGTH_SHORT).show());
-    }
-
-    private void showPresensiDialog() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View dialogView = inflater.inflate(R.layout.dialog_presensi_options, null);
-
-        TextView presensiPKL = dialogView.findViewById(R.id.presensiPKL);
-        TextView presensiPKN = dialogView.findViewById(R.id.presensiPKN);
-
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setView(dialogView)
-                .create();
-
-        presensiPKL.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (isNetworkAvailable()) {
-                Intent intent = new Intent(this, PresensiActivity.class);
-                intent.putExtra("KATEGORI", "PKL");
-                startActivity(intent);
-                overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
-            } else {
-                Toast.makeText(this, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
             }
+
+            return true;
         });
-
-        presensiPKN.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (isNetworkAvailable()) {
-                Intent intent = new Intent(this, PresensiActivity.class);
-                intent.putExtra("KATEGORI", "PKN");
-                startActivity(intent);
-                overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
-            } else {
-                Toast.makeText(this, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        dialog.show();
-
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-    }
-
-    private void showPerizinanDialog() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View dialogView = inflater.inflate(R.layout.dialog_perizinan_options, null);
-
-        TextView perizinanPKL = dialogView.findViewById(R.id.perizinanPKL);
-        TextView perizinanPKN = dialogView.findViewById(R.id.perizinanPKN);
-
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setView(dialogView)
-                .create();
-
-        perizinanPKL.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (isNetworkAvailable()) {
-                Intent intent = new Intent(this, PerizinanActivity.class);
-                intent.putExtra("KATEGORI", "PKL");
-                startActivity(intent);
-                overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
-            } else {
-                Toast.makeText(this, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        perizinanPKN.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (isNetworkAvailable()) {
-                Intent intent = new Intent(this, PerizinanActivity.class);
-                intent.putExtra("KATEGORI", "PKN");
-                startActivity(intent);
-                overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
-            } else {
-                Toast.makeText(this, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        dialog.show();
-
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Network network = connectivityManager.getActiveNetwork();
-            if (network == null) return false;
-            NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
-            return capabilities != null &&
-                    (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
-        } else {
-            // Fallback untuk versi lama
-            NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-            return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        // Tampilkan dialog konfirmasi saat tombol back ditekan
-        super.onBackPressed();
-        new AlertDialog.Builder(this)
-                .setTitle("Keluar Aplikasi")
-                .setMessage("Apakah Anda yakin ingin keluar dari aplikasi?")
-                .setPositiveButton("Ya", (dialog, which) -> finish())
-                .setNegativeButton("Tidak", null)
-                .show();
     }
 }

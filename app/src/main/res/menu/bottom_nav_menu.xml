@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home"
+        android:icon="@drawable/home" />
+    <item
+        android:id="@+id/nav_absen"
+        android:title="Absen"
+        android:icon="@drawable/absen" />
+    <item
+        android:id="@+id/nav_izin"
+        android:title="Izin"
+        android:icon="@drawable/izin" />
+    <item
+        android:id="@+id/nav_cuti"
+        android:title="Cuti"
+        android:icon="@drawable/cuti" />
+    <item
+        android:id="@+id/nav_riwayat"
+        android:title="Riwayat"
+        android:icon="@drawable/history" />
+</menu>
